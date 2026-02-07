@@ -69,9 +69,126 @@
         </div>
     </div>
 
-    <!-- Scripts -->
-    <script src="config.js"></script>
-    <script src="theme.js"></script>
-    <script src="script.js"></script>
+<script>
+    const questions = [
+        "Hey Ankuji, do you have a map? Because I keep getting lost in your eyes!",
+        "Is your name Google? Because you have everything I've been searching for.",
+        "Are you made of copper and tellurium? Because you're Cu-Te!",
+        "Do you believe in love at first sight, or should I walk by again?",
+        "If you were a vegetable, you'd be a cute-cumber!",
+        "Are you a magician? Because whenever I look at you, everyone else disappears!",
+        "Do you have a Band-Aid? Because I just scraped my knee falling for you.",
+        "Is your dad a boxer? Because you're a knockout!",
+        "Are you French? Because Eiffel for you!",
+        "Do you like Star Wars? Because Yoda one for me!",
+        "Are you a parking ticket? Because you've got FINE written all over you.",
+        "Is there an airport nearby or is it my heart taking off?",
+        "Do you have a sunburn, or are you always this hot?",
+        "Are you a time traveler? Because I see you in my future!",
+        "Can I follow you where you're going right now? Because my parents always told me to follow my dreams.",
+        "Do you have a name, or can I call you mine?"
+    ];
+
+    let currentQuestionIndex = 0;
+    let noCount = 0;
+    let yesSize = 1;
+    let backgroundImageAdded = false;
+
+    const questionElement = document.getElementById('question');
+    const yesButton = document.getElementById('yesButton');
+    const noButton = document.getElementById('noButton');
+    const gifContainer = document.getElementById('gifContainer');
+
+    function askQuestion() {
+        questionElement.textContent = questions[currentQuestionIndex];
+    }
+
+    function handleYesClick() {
+        if (currentQuestionIndex === 0) {
+            // First question - play music and show GIF
+            const music = document.getElementById('backgroundMusic');
+            music.play().catch(e => console.log("Autoplay prevented:", e));
+            
+            gifContainer.innerHTML = '<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMG13ZWV2bG0wdmZ3N2oxcTJ4dG8wa2FveDNsb3lhbDZqOTlybGd6ayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l2SpQyifp0k9W9Qso/giphy.gif" alt="Cute GIF">';
+            gifContainer.style.display = 'block';
+        }
+        
+        currentQuestionIndex++;
+        
+        if (currentQuestionIndex >= questions.length) {
+            // All questions answered
+            questionElement.textContent = "Yay! Will you be my Valentine? ❤️";
+            yesButton.textContent = "YES! 💖";
+            noButton.style.display = 'none';
+            
+            // Add romantic background when they finally say yes
+            if (!backgroundImageAdded) {
+                document.body.style.backgroundImage = "url('https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')";
+                document.body.style.backgroundSize = "cover";
+                document.body.style.backgroundPosition = "center";
+                document.body.style.backgroundAttachment = "fixed";
+                document.body.style.transition = "background-image 1s ease-in-out";
+            }
+        } else {
+            askQuestion();
+        }
+        
+        // Reset noCount for new question
+        noCount = 0;
+        yesSize = 1;
+        updateButtonSizes();
+    }
+
+    function handleNoClick() {
+        noCount++;
+        
+        // Make YES button bigger
+        yesSize += 0.3;
+        updateButtonSizes();
+        
+        // Funny responses based on noCount
+        const responses = [
+            "Are you sure?",
+            "Really sure?",
+            "Think again!",
+            "Last chance!",
+            "Surely not?",
+            "You might regret this!",
+            "Give it another thought!",
+            "Are you absolutely certain?",
+            "This could be a mistake!",
+            "Have a heart!",
+            "Don't be so cold!",
+            "Change of heart?",
+            "Wouldn't you reconsider?",
+            "Is that your final answer?",
+            "You're breaking my heart ;("
+        ];
+        
+        noButton.textContent = responses[Math.min(noCount - 1, responses.length - 1)];
+        
+        // Add background image after 3rd question if not already added
+        if (currentQuestionIndex >= 3 && !backgroundImageAdded) {
+            backgroundImageAdded = true;
+            document.body.style.backgroundImage = "url('https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')";
+            document.body.style.backgroundSize = "cover";
+            document.body.style.backgroundPosition = "center";
+            document.body.style.backgroundAttachment = "fixed";
+            document.body.style.transition = "background-image 1s ease-in-out";
+        }
+    }
+
+    function updateButtonSizes() {
+        yesButton.style.transform = `scale(${yesSize})`;
+        yesButton.style.transition = 'transform 0.3s ease';
+    }
+
+    // Event listeners
+    yesButton.addEventListener('click', handleYesClick);
+    noButton.addEventListener('click', handleNoClick);
+
+    // Initialize first question
+    askQuestion();
+</script>
 </body>
 </html> 
