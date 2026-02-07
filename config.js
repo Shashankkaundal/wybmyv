@@ -78,7 +78,7 @@ const CONFIG = {
     music: {
         enabled: true,                     // Music feature is enabled
         autoplay: true,                    // Try to autoplay (note: some browsers may block this)
-        musicUrl: "https://res.cloudinary.com/drhdswk5j/video/upload/v1770481329/Bruno-Mars-Treasure_zzham3.mp3", // Music streaming URL
+        musicUrl: "https://res.cloudinary.com/drhdswk5j/video/upload/v1770481539/Treasure_-_Bruno_Mars_Lyrics_ecncfh.mp3", // Music streaming URL
         startText: "🎵 Play Music",        // Button text to start music
         stopText: "🔇 Stop Music",         // Button text to stop music
         volume: 0.5                        // Volume level (0.0 to 1.0)
